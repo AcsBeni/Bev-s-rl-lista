@@ -41,11 +41,11 @@ function refreshtable(){
         let td4 = document.createElement('td');
         let td5 = document.createElement('td');
         
-        td1.innerHTML = 1+1 + ',';
-        td2.innerHTML = Items[1].name;
-        td3.innerHTML = Items[1].price + 'Ft';
-        td4.innerHTML= Items[1].count + 'db';
-        td5.innerHTML= Items[1].sum + 'ft';
+        td1.innerHTML =i+1+ '.';
+        td2.innerHTML = Items[i].name;
+        td3.innerHTML = Items[i].price + 'Ft';
+        td4.innerHTML= Items[i].count + 'db';
+        td5.innerHTML= Items[i].sum + 'ft';
 
         td3.classList.add('text-end');
         td4.classList.add('text-end');
@@ -79,4 +79,4 @@ function load(){
 //induláskor
 load();
 refreshtable();
-cleaform();
+clearform();
