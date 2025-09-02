@@ -13,34 +13,30 @@ Addbtn.addEventListener('click', ()=>{
         alert("Nem adtál meg minden adatot")
         return;
     }
-    console.log("Megadott mindent")
-    add();
-    refreshtable();
-    clearform();
-    });
     
-    
-function add(){
     Items.push({
         name: nameField.value,
         price: Number(priceField.value),
         count: Number(countField.value),
-        sum: priceField.value- countField.value
+        sum: priceField.value * countField.value
     })
+    refreshtable()
+    clearform()
     
-}
+    });
+    
+    
 
 function refreshtable(){
     itemsList.innerHTML = '';
-    
-    for(let i = 0; 1<Items.length; i++){
+    sum = 0;
+    for(let i = 0; i<Items.length; i++){
         let tr = document.createElement('tr');
         let td1 = document.createElement('td');
         let td2 = document.createElement('td');
         let td3 = document.createElement('td');
         let td4 = document.createElement('td');
         let td5 = document.createElement('td');
-        
         td1.innerHTML =i+1+ '.';
         td2.innerHTML = Items[i].name;
         td3.innerHTML = Items[i].price + 'Ft';
@@ -51,6 +47,7 @@ function refreshtable(){
         td4.classList.add('text-end');
         td5.classList.add('text-end');
 
+        sum += Items[i].sum;
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
@@ -61,6 +58,7 @@ function refreshtable(){
         
     }
     summLBL.innerHTML = sum
+    
    
 }
 
@@ -68,6 +66,7 @@ function clearform(){
     nameField.value = ""
     priceField.value = 0
     countField.value = 0
+    
 }
 
 function save(){
