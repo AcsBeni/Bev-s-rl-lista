@@ -20,8 +20,9 @@ Addbtn.addEventListener('click', ()=>{
         count: Number(countField.value),
         sum: priceField.value * countField.value
     })
-    refreshtable()
-    clearform()
+    refreshtable();
+    clearform();
+    save();
     
     });
     
@@ -70,10 +71,12 @@ function clearform(){
 }
 
 function save(){
-    localStorage.setItem("bevLista", Items.toString())
+    localStorage.setItem("bevLista", JSON.stringify(Items))
 }
 function load(){
-
+    if(localStorage.getItem("bevLista")){
+        Items = JSON.parse(localStorage.getItem("bevLista"));
+    }
 }
 //induláskor
 load();
