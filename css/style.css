@@ -17,3 +17,30 @@ footer h6{
 tfoot{
     font-size: 150% !important;
 }
+.szamform{
+    width: 100%;
+}
+.fotarolo{
+    display: flex;
+    flex-direction: row;
+}
+.tarolo{
+    display: flex;
+    flex-direction: row;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .tarolo{
+        flex-direction: column;
+    }
+    .fotarolo{
+        flex-direction:  column;
+    }
+    
+}
+@media screen and (max-width: 900px) {
+    .tarolo{
+        flex-direction: column;
+    }
+}

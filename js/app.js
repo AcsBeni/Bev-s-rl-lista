@@ -5,13 +5,29 @@ let countField = document.getElementById("countField");
 let Addbtn = document.getElementById("Addbtn");
 let itemsList = document.getElementById("itemsList");
 let summLBL = document.getElementById("summLBL");
+let optionfield = document.getElementById("datalistOptions");
 let Items =[];
+let products=[];
+
 let sum=0
 //
 Addbtn.addEventListener('click', ()=>{
     if(nameField.value =="" || countField.value==0 || priceField.value ==0){
         alert("Nem adtál meg minden adatot")
         return;
+    }
+
+    //kiválasztáskor az árát is mutatja, ennyi + választás, Módosítás névvel tej 80- tej 100 , namefield selectionchange event Findindex
+    for(let i=0; i<Items.length ; i++){
+        if(Items[i].name == nameField.value && Items[i].price == priceField.value){
+            Items[i].count += Number(countField.value)
+            Items[i].sum = Items[i].price *Items[i].count
+            refreshtable();
+            clearform();
+            save();
+            
+            return;
+        }
     }
     
     Items.push({
@@ -20,6 +36,7 @@ Addbtn.addEventListener('click', ()=>{
         count: Number(countField.value),
         sum: priceField.value * countField.value
     })
+    
     refreshtable();
     clearform();
     save();
@@ -30,6 +47,7 @@ Addbtn.addEventListener('click', ()=>{
 
 function refreshtable(){
     itemsList.innerHTML = '';
+    optionfield.innerHTML = '';
     sum = 0;
     for(let i = 0; i<Items.length; i++){
         let tr = document.createElement('tr');
@@ -40,17 +58,21 @@ function refreshtable(){
         let td5 = document.createElement('td');
         let td6 = document.createElement('td');
         let btn = document.createElement('button')
+        let option = document.createElement('option')
 
         td1.innerHTML =i+1+ '.';
         td2.innerHTML = Items[i].name;
         td3.innerHTML = Items[i].price + 'Ft';
         td4.innerHTML= Items[i].count + 'db';
         td5.innerHTML= Items[i].sum + 'ft';
+        option.innerHTML = Items[i].name;
         btn.classList.add('btn', 'btn-danger', 'btn-sm')
         btn.innerHTML = "X"
         btn.addEventListener('click', ()=>{
             deleteitem(i)
         })
+        
+
 
         td3.classList.add('text-end');
         td4.classList.add('text-end');
@@ -58,6 +80,7 @@ function refreshtable(){
         td6.classList.add('text-center')
 
         sum += Items[i].sum;
+
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
@@ -65,7 +88,7 @@ function refreshtable(){
         tr.appendChild(td5);
         tr.appendChild(td6);
         td6.appendChild(btn);
-        
+        optionfield.appendChild(option)
         itemsList.appendChild(tr);
         
     }
@@ -82,7 +105,7 @@ function clearform(){
 }
 function deleteitem(idx){
     if(confirm('Biztosan törlöd az itemet?')){
-        
+        Lista.splice(idx, 1)
         Items.splice(idx, 1)
         refreshtable();
         save();
