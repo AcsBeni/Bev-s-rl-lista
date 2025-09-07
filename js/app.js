@@ -18,32 +18,25 @@ Addbtn.addEventListener('click', ()=>{
     }
 
     //kiválasztáskor az árát is mutatja, ennyi + választás, Módosítás névvel tej 80- tej 100 , namefield selectionchange event Findindex
-
-    for(let i=0; i<Items.length ; i++){
-        if(Items[i].name == nameField.value && Items[i].price != priceField.value){
-            
-           
-            Items[i].price = Number(priceField.value);
-            Items[i].sum = Items[i].price * Items[i].count;
-            
-            
-            refreshtable();
-            clearform();
-            save();
-            return;
-        }
-        Items[i].count += Number(countField.value)
-        Items[i].sum = Items[i].price * Items[i].count;
+    let kereses = Items.find(item => item.name === nameField.value);
+    let arkereses = Items.find(item => item.price === Number(priceField.value));
+    
+    if(kereses && !arkereses){
+        kereses.price = Number(priceField.value);
+        kereses.sum = kereses.price * kereses.count;
         refreshtable();
         clearform();
         save();
         return;
-
-        
     }
-    
-
-    
+    else if(kereses && arkereses){
+        kereses.count += Number(countField.value);
+        kereses.sum = kereses.price * kereses.count;
+        refreshtable();
+        clearform();
+        save();
+        return;
+    }
     Items.push({
         name: nameField.value,
         price: Number(priceField.value),
