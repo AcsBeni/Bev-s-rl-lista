@@ -18,17 +18,43 @@ Addbtn.addEventListener('click', ()=>{
     }
 
     //kiválasztáskor az árát is mutatja, ennyi + választás, Módosítás névvel tej 80- tej 100 , namefield selectionchange event Findindex
+
     for(let i=0; i<Items.length ; i++){
-        if(Items[i].name == nameField.value && Items[i].price == priceField.value){
-            Items[i].count += Number(countField.value)
-            Items[i].sum = Items[i].price *Items[i].count
+        if(Items[i].name == nameField.value && Items[i].price != priceField.value){
+            
+           
+            Items[i].price = Number(priceField.value);
+            Items[i].sum = Items[i].price * Items[i].count;
+            
+            if(Items[i].name == nameField.value && Items[i].count != countField.value){
+            
+                Items[i].count = Number(countField.value)
+                Items[i].sum = Items[i].price * Items[i].count;
+                refreshtable();
+                clearform();
+                save();
+                return;
+                
+            }
             refreshtable();
             clearform();
             save();
-            
             return;
         }
+        else if(Items[i].name == nameField.value && Items[i].count != countField.value){
+           
+            Items[i].count = Number(countField.value)
+            Items[i].sum = Items[i].price * Items[i].count;
+            refreshtable();
+            clearform();
+            save();
+            return;
+        }
+
+        
     }
+    
+
     
     Items.push({
         name: nameField.value,
@@ -105,10 +131,12 @@ function clearform(){
 }
 function deleteitem(idx){
     if(confirm('Biztosan törlöd az itemet?')){
-        Lista.splice(idx, 1)
         Items.splice(idx, 1)
+        products.splice(idx, 1)
+       
         refreshtable();
         save();
+        
 
     }
     
@@ -121,6 +149,24 @@ function load(){
         Items = JSON.parse(localStorage.getItem("bevLista"));
     }
 }
+
+
+
+
+
+nameField.addEventListener("selectionchange", () => {
+    let kereses = Items.find(item => item.name === nameField.value);
+    if (kereses) {
+        priceField.value = kereses.price;
+        countField.value = kereses.count;
+    }
+});
+
+
+
+
+
+
 //induláskor
 load();
 refreshtable();
