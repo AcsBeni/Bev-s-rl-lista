@@ -26,30 +26,18 @@ Addbtn.addEventListener('click', ()=>{
             Items[i].price = Number(priceField.value);
             Items[i].sum = Items[i].price * Items[i].count;
             
-            if(Items[i].name == nameField.value && Items[i].count != countField.value){
             
-                Items[i].count = Number(countField.value)
-                Items[i].sum = Items[i].price * Items[i].count;
-                refreshtable();
-                clearform();
-                save();
-                return;
-                
-            }
             refreshtable();
             clearform();
             save();
             return;
         }
-        else if(Items[i].name == nameField.value && Items[i].count != countField.value){
-           
-            Items[i].count = Number(countField.value)
-            Items[i].sum = Items[i].price * Items[i].count;
-            refreshtable();
-            clearform();
-            save();
-            return;
-        }
+        Items[i].count += Number(countField.value)
+        Items[i].sum = Items[i].price * Items[i].count;
+        refreshtable();
+        clearform();
+        save();
+        return;
 
         
     }
