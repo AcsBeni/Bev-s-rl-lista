@@ -146,7 +146,7 @@ nameField.addEventListener("selectionchange", () => {
     let kereses = Items.find(item => item.name === nameField.value);
     if (kereses) {
         priceField.value = kereses.price;
-        countField.value = kereses.count;
+        
     }
 });
 
